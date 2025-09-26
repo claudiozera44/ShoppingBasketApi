@@ -1,0 +1,325 @@
+{
+	"info": {
+		"_postman_id": "123e4567-e89b-12d3-a456-426614174000",
+		"name": "Shopping Basket API",
+		"description": "Comprehensive REST API for managing online shopping baskets with VAT calculation, discounts, and shipping costs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Basket",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}"
+					]
+				},
+				"description": "Retrieves a basket by ID with complete cost breakdown"
+			}
+		},
+		{
+			"name": "Add Single Item",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"item-001\",\n  \"name\": \"Premium Coffee Beans\",\n  \"unitPrice\": 15.99,\n  \"quantity\": 2,\n  \"isDiscounted\": false,\n  \"discountPercentage\": 0\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}/items",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}",
+						"items"
+					]
+				},
+				"description": "Adds a single item to the basket"
+			}
+		},
+		{
+			"name": "Add Discounted Item",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"item-002\",\n  \"name\": \"Organic Tea Collection\",\n  \"unitPrice\": 24.99,\n  \"quantity\": 1,\n  \"isDiscounted\": true,\n  \"discountPercentage\": 25\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}/items",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}",
+						"items"
+					]
+				},
+				"description": "Adds a pre-discounted item to the basket"
+			}
+		},
+		{
+			"name": "Add Multiple Items",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"items\": [\n    {\n      \"id\": \"item-003\",\n      \"name\": \"French Press\",\n      \"unitPrice\": 39.99,\n      \"quantity\": 1,\n      \"isDiscounted\": false,\n      \"discountPercentage\": 0\n    },\n    {\n      \"id\": \"item-004\",\n      \"name\": \"Ceramic Mugs Set\",\n      \"unitPrice\": 19.99,\n      \"quantity\": 2,\n      \"isDiscounted\": false,\n      \"discountPercentage\": 0\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}/items/bulk",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}",
+						"items",
+						"bulk"
+					]
+				},
+				"description": "Adds multiple items to the basket in a single request"
+			}
+		},
+		{
+			"name": "Add Multiple of Same Item",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"item-001\",\n  \"name\": \"Premium Coffee Beans\",\n  \"unitPrice\": 15.99,\n  \"quantity\": 3,\n  \"isDiscounted\": false,\n  \"discountPercentage\": 0\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}/items",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}",
+						"items"
+					]
+				},
+				"description": "Adds multiple quantities of the same item (will update existing item quantity)"
+			}
+		},
+		{
+			"name": "Remove Item",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}/items/item-004",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}",
+						"items",
+						"item-004"
+					]
+				},
+				"description": "Removes an item from the basket"
+			}
+		},
+		{
+			"name": "Get Total With VAT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}/total-with-vat",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}",
+						"total-with-vat"
+					]
+				},
+				"description": "Gets the total cost including 20% VAT and shipping"
+			}
+		},
+		{
+			"name": "Get Total Without VAT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}/total-without-vat",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}",
+						"total-without-vat"
+					]
+				},
+				"description": "Gets the total cost excluding VAT but including shipping"
+			}
+		},
+		{
+			"name": "Apply Discount Code",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"discountCode\": \"SAVE10\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}/discount-code",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}",
+						"discount-code"
+					]
+				},
+				"description": "Applies a discount code to the basket (excludes already discounted items)"
+			}
+		},
+		{
+			"name": "Set UK Shipping",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"country\": \"UK\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}/shipping",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}",
+						"shipping"
+					]
+				},
+				"description": "Sets shipping destination to UK (£5.99 shipping cost)"
+			}
+		},
+		{
+			"name": "Set International Shipping",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"country\": \"US\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/basket/{{basket_id}}/shipping",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"{{basket_id}}",
+						"shipping"
+					]
+				},
+				"description": "Sets shipping destination to international (£15.99 shipping cost)"
+			}
+		},
+		{
+			"name": "Get Available Discount Codes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/basket/discount-codes",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"basket",
+						"discount-codes"
+					]
+				},
+				"description": "Retrieves all available discount codes"
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "basket_id",
+			"value": "my-basket-001",
+			"type": "string"
+		}
+	]
+}
